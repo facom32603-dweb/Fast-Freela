@@ -1,0 +1,82 @@
+name: Deploy to InfinityFree
+
+on:
+  push:
+    branches: [ "main" ]
+
+concurrency:
+  group: deploy-infinityfree
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create production .env (from GitHub Secrets)
+        run: |
+          cat > .env << 'EOF'
+          APP_ENV=prod
+          APP_DEBUG=0
+          APP_BASE_URL=${{ secrets.APP_BASE_URL }}
+
+          DB_HOST=${{ secrets.DB_HOST }}
+          DB_PORT=${{ secrets.DB_PORT }}
+          DB_NAME=${{ secrets.DB_NAME }}
+          DB_USER=${{ secrets.DB_USER }}
+          DB_PASS=${{ secrets.DB_PASS }}
+          DB_CHARSET=${{ secrets.DB_CHARSET }}
+          EOF
+
+          # fallback defaults if some secrets not set
+          sed -i 's/DB_PORT=$/DB_PORT=3306/' .env
+          sed -i 's/DB_CHARSET=$/DB_CHARSET=utf8mb4/' .env
+
+      - name: Install lftp
+        run: sudo apt-get install -y lftp
+
+      - name: Deploy (FTP mirror)
+        env:
+          FTP_HOST: ${{ secrets.INF_FTP_HOST }}
+          FTP_USER: ${{ secrets.INF_FTP_USER }}
+          FTP_PASS: ${{ secrets.INF_FTP_PASS }}
+          FTP_PORT: ${{ secrets.INF_FTP_PORT }}
+          REMOTE_DIR: ${{ secrets.INF_REMOTE_DIR }}
+        run: |
+          : "${FTP_PORT:=21}"
+          : "${REMOTE_DIR:=/}"
+
+          lftp -c "
+          set ftp:ssl-allow no;
+          set net:timeout 20;
+          set net:max-retries 2;
+          open -p $FTP_PORT -u $FTP_USER,$FTP_PASS $FTP_HOST;
+
+          cd $REMOTE_DIR;
+
+          # 1) publica o público em htdocs/
+          mirror -R --delete --verbose \
+            --exclude-glob .git* \
+            --exclude-glob .github/ \
+            --exclude-glob docker/ \
+            --exclude-glob storage/logs/* \
+            public htdocs;
+
+          # 2) publica o app e configs fora do htdocs/
+          mirror -R --delete --verbose \
+            --exclude-glob .git* \
+            --exclude-glob .github/ \
+            --exclude-glob docker/ \
+            app app;
+
+          mirror -R --delete --verbose config config;
+          mirror -R --delete --verbose storage storage;
+
+          # 3) envia .env fora do htdocs/ (raiz do projeto remoto)
+          put -O . .env;
+
+          bye;
+          "
