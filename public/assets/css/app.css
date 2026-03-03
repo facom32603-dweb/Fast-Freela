@@ -1,0 +1,71 @@
+:root{
+  --ff-green-500: #79F2A4;
+  --ff-green-700: #50F289;
+  --ff-green-300: #A2F2BE;
+  --ff-black-500: #333333;
+  --ff-white-500: #F2F2F2;
+}
+
+html, body { height: 100%; }
+body{
+  background: var(--ff-white-500);
+  color: var(--ff-black-500);
+}
+
+a { color: #1b6b3a; }
+a:hover { color: #12512c; }
+
+.ff-navbar{
+  background: var(--ff-black-500);
+}
+.ff-navbar .navbar-brand, .ff-navbar .nav-link{
+  color: var(--ff-white-500) !important;
+}
+.ff-navbar .nav-link.active{
+  color: var(--ff-green-500) !important;
+}
+
+.ff-card{
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.06);
+}
+
+.ff-btn-primary{
+  background: var(--ff-green-700);
+  border-color: var(--ff-green-700);
+  color: #0b2b18;
+  font-weight: 600;
+}
+.ff-btn-primary:hover{
+  background: var(--ff-green-500);
+  border-color: var(--ff-green-500);
+  color: #0b2b18;
+}
+
+.ff-badge-open{
+  background: var(--ff-green-300);
+  color: #0b2b18;
+}
+.ff-badge-closed{
+  background: #e6e6e6;
+  color: #555;
+}
+
+.ff-input:focus{
+  border-color: var(--ff-green-700);
+  box-shadow: 0 0 0 .2rem rgba(80,242,137,.25);
+}
+
+.ff-footer{
+  color: #666;
+  font-size: .9rem;
+}
+
+.ff-hero{
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(121,242,164,.75), rgba(162,242,190,.55));
+  padding: 24px;
+}
+
+.small-muted{ color: #666; font-size: .95rem; }

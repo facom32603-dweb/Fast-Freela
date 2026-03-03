@@ -1,0 +1,1 @@
+<div class='ff-card bg-white p-4'><h1 class='h4'>Acesso negado</h1><p class='small-muted mb-0'>Você não tem permissão para acessar esta página.</p></div>

@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/phpunit,cakephp,web
 # Edit at https://www.toptal.com/developers/gitignore?templates=phpunit,cakephp,web
 
+.env
+.tmp
+
 ### VisualStudioCode ###
 .vscode/*
 
@@ -15,61 +18,7 @@
 .history
 .ionide
 
-### CakePHP ###
-# CakePHP 3
-
-/vendor/*
-/config/app.php
-
-/tmp/cache/models/*
-!/tmp/cache/models/empty
-/tmp/cache/persistent/*
-!/tmp/cache/persistent/empty
-/tmp/cache/views/*
-!/tmp/cache/views/empty
-/tmp/sessions/*
-!/tmp/sessions/empty
-/tmp/tests/*
-!/tmp/tests/empty
-
-/logs/*
-!/logs/empty
-
-# CakePHP 2
-
-/app/tmp/*
-/app/Config/core.php
-/app/Config/database.php
-/vendors/*
-
-### PHPUnit ###
-# Covers PHPUnit
-# Reference: https://phpunit.de/
-
-# Generated files
-.phpunit.result.cache
-.phpunit.cache
-
-# PHPUnit
-/app/phpunit.xml
-/phpunit.xml
-
 # Build data
 /build/
-
-### Web ###
-*.asp
-*.cer
-*.csr
-*.css
-*.htm
-*.html
-*.js
-*.jsp
-*.php
-*.rss
-*.wasm
-*.wat
-*.xhtml
 
 # End of https://www.toptal.com/developers/gitignore/api/phpunit,cakephp,web
