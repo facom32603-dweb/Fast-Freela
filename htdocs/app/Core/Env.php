@@ -19,20 +19,27 @@ final class Env
             $value = trim($value);
 
             if ($value !== '' && ($value[0] === '"' || $value[0] === "'")) {
-                $value = trim($value, "'");
+                $value = trim($value, "\"'");
             }
 
-            if ($key !== '' && getenv($key) === false) {
-                putenv($key . '=' . $value);
-                $_ENV[$key] = $value;
-            }
+            if ($key === '') continue;
+
+            $_ENV[$key] = $value;
+            $_SERVER[$key] = $value;
+
+            @putenv($key . '=' . $value);
         }
     }
 
     public static function get(string $key, ?string $default = null): ?string
     {
         $v = getenv($key);
-        if ($v === false || $v === '') return $default;
-        return $v;
+        if ($v !== false && $v !== '') return $v;
+
+        if (isset($_ENV[$key]) && $_ENV[$key] !== '') return (string)$_ENV[$key];
+
+        if (isset($_SERVER[$key]) && $_SERVER[$key] !== '') return (string)$_SERVER[$key];
+
+        return $default;
     }
 }

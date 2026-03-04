@@ -10,11 +10,11 @@
 <div class="row g-3">
   <div class="col-lg-4">
     <div class="ff-card bg-white p-4">
-      <div class="fw-semibold mb-1"><?= e($user['name'] ?? Auth::user()['name']) ?></div>
-      <div class="small-muted"><?= e($user['email'] ?? Auth::user()['email']) ?></div>
+      <div class="fw-semibold mb-1"><?= e($user['name']) ?></div>
+      <div class="small-muted"><?= e($user['email']) ?></div>
       <hr>
       <div class="small-muted">Bio</div>
-      <div style="white-space: pre-wrap;"><?= e($user['bio'] ?? 'Sem bio.') ?></div>
+      <div style="white-space: pre-wrap;"><?= e($user['bio']) ?? 'Sem bio'  ?></div>
     </div>
   </div>
 

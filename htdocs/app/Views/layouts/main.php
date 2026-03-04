@@ -4,7 +4,8 @@ use App\Core\Flash;
 use App\Core\View;
 
 $flash = Flash::pull();
-$user = Auth::user();
+$authUser = Auth::user();
+
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -15,7 +16,16 @@ $user = Auth::user();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="/assets/css/app.css" rel="stylesheet">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
+
+<div class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1100">
+  <?php if ($flash): ?>
+    <div class="alert alert-<?= e($flash['type']) ?> ff-card shadow" data-flash-autohide="1" role="alert">
+      <?= e($flash['message']) ?>
+    </div>
+  <?php endif; ?>
+</div>
+
 <nav class="navbar navbar-expand-lg ff-navbar">
   <div class="container">
     <a class="navbar-brand d-flex align-items-center gap-2" href="/">
@@ -40,10 +50,13 @@ $user = Auth::user();
       </ul>
 
       <div class="d-flex gap-2 align-items-center">
-        <?php if ($user): ?>
-          <span class="text-white-50 small">Olá, <?= e($user['name']) ?></span>
+        <?php if ($authUser): ?>
+          <span class="text-white-50 small">Olá, <?= e($authUser['name']) ?></span>
           <a class="btn btn-sm ff-btn-primary" href="/jobs/create">Publicar</a>
-          <a class="btn btn-sm btn-outline-light" href="/auth/logout">Sair</a>
+          <form action="/auth/logout" method="POST">
+            <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
+            <button type="submit" class="btn btn-sm btn-outline-light">Sair</button>
+          </form>
         <?php else: ?>
           <a class="btn btn-sm btn-outline-light" href="/auth/login">Entrar</a>
           <a class="btn btn-sm ff-btn-primary" href="/auth/register">Criar conta</a>
@@ -53,13 +66,7 @@ $user = Auth::user();
   </div>
 </nav>
 
-<main class="container my-4">
-  <?php if ($flash): ?>
-    <div class="alert alert-<?= e($flash['type']) ?> ff-card" data-flash-autohide="1">
-      <?= e($flash['message']) ?>
-    </div>
-  <?php endif; ?>
-
+<main class="container my-4 flex-grow-1">
   <?php View::includeView($view, get_defined_vars()); ?>
 </main>
 

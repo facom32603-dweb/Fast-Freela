@@ -81,6 +81,7 @@ final class AuthController extends Controller
             'email' => $email,
             'primary_role' => $role,
             'is_admin' => false,
+            'bio' => null,
         ];
 
         Flash::success('Conta criada! Bem-vindo(a).');
@@ -89,6 +90,9 @@ final class AuthController extends Controller
 
     public function logout(): void
     {
+        $this->requirePost();
+        $this->requireCsrf();
+
         session_destroy();
         session_start();
         Flash::info('Você saiu da sua conta.');

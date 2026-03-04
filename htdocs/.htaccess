@@ -1,0 +1,20 @@
+RewriteEngine On
+
+# 1) Bloqueia acesso direto a arquivos sensíveis
+<FilesMatch "^(\.env|composer\.json|composer\.lock)$">
+  Require all denied
+</FilesMatch>
+
+# 2) Bloqueia acesso direto a pastas internas (MVC)
+RewriteRule ^app(/|$) - [F,L]
+RewriteRule ^config(/|$) - [F,L]
+RewriteRule ^storage(/|$) - [F,L]
+RewriteRule ^scripts(/|$) - [F,L]
+
+# 3) Serve assets/ normalmente
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# 4) Tudo o resto vai para o front controller
+RewriteRule ^ index.php [L]
