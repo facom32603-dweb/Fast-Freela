@@ -22,7 +22,7 @@ $router->get('/auth/login', fn() => (new AuthController())->showLogin());
 $router->post('/auth/login', fn() => (new AuthController())->login());
 $router->get('/auth/register', fn() => (new AuthController())->showRegister());
 $router->post('/auth/register', fn() => (new AuthController())->register());
-$router->get('/auth/logout', fn() => (new AuthController())->logout());
+$router->post('/auth/logout', fn() => (new AuthController())->logout());
 
 // Jobs
 $router->get('/jobs', fn() => (new JobController())->index());

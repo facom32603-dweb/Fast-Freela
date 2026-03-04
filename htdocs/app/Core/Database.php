@@ -29,7 +29,6 @@ final class Database
                 PDO::ATTR_EMULATE_PREPARES => false,
             ]);
         } catch (PDOException $e) {
-            // Avoid exposing credentials
             http_response_code(500);
             echo "Erro ao conectar no banco. Verifique as variáveis de ambiente.";
             exit;

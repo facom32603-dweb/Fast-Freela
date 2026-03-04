@@ -1,7 +1,5 @@
--- FastFreela schema (MySQL / InnoDB / utf8mb4)
-
-CREATE TABLE IF NOT EXISTS users (
-  id            BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE users (
+  id            BIGINT AUTO_INCREMENT PRIMARY KEY,
   name          VARCHAR(120) NOT NULL,
   email         VARCHAR(180) NOT NULL UNIQUE,
   password_hash VARCHAR(255) NOT NULL,
@@ -13,9 +11,9 @@ CREATE TABLE IF NOT EXISTS users (
   deleted_at    DATETIME NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS jobs (
-  id               BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  author_id        BIGINT UNSIGNED NOT NULL,
+CREATE TABLE jobs (
+  id               BIGINT AUTO_INCREMENT PRIMARY KEY,
+  author_id        BIGINT NOT NULL,
   title            VARCHAR(140) NOT NULL,
   description      TEXT NOT NULL,
   job_date         DATE NOT NULL,
@@ -25,30 +23,35 @@ CREATE TABLE IF NOT EXISTS jobs (
   created_at       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   deleted_at       DATETIME NULL,
-  CONSTRAINT fk_jobs_author FOREIGN KEY (author_id) REFERENCES users(id)
+  CONSTRAINT fk_jobs_author
+    FOREIGN KEY (author_id) REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE INDEX idx_jobs_title ON jobs(title);
 CREATE INDEX idx_jobs_status ON jobs(status);
+CREATE INDEX idx_jobs_title  ON jobs(title);
 
-CREATE TABLE IF NOT EXISTS job_favorites (
-  user_id BIGINT UNSIGNED NOT NULL,
-  job_id  BIGINT UNSIGNED NOT NULL,
+CREATE TABLE job_favorites (
+  user_id BIGINT NOT NULL,
+  job_id  BIGINT NOT NULL,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (user_id, job_id),
-  CONSTRAINT fk_fav_user FOREIGN KEY (user_id) REFERENCES users(id),
-  CONSTRAINT fk_fav_job  FOREIGN KEY (job_id) REFERENCES jobs(id)
+  CONSTRAINT fk_fav_user
+    FOREIGN KEY (user_id) REFERENCES users(id),
+  CONSTRAINT fk_fav_job
+    FOREIGN KEY (job_id) REFERENCES jobs(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS job_comments (
-  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  job_id BIGINT UNSIGNED NOT NULL,
-  user_id BIGINT UNSIGNED NOT NULL,
-  content TEXT NOT NULL,
+CREATE TABLE job_comments (
+  id        BIGINT AUTO_INCREMENT PRIMARY KEY,
+  job_id    BIGINT NOT NULL,
+  user_id   BIGINT NOT NULL,
+  content   TEXT NOT NULL,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   deleted_at DATETIME NULL,
-  CONSTRAINT fk_comments_job FOREIGN KEY (job_id) REFERENCES jobs(id),
-  CONSTRAINT fk_comments_user FOREIGN KEY (user_id) REFERENCES users(id)
+  CONSTRAINT fk_comments_job
+    FOREIGN KEY (job_id) REFERENCES jobs(id),
+  CONSTRAINT fk_comments_user
+    FOREIGN KEY (user_id) REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE INDEX idx_comments_job_created ON job_comments(job_id, created_at);

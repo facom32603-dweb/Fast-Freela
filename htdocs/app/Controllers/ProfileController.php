@@ -42,6 +42,7 @@ final class ProfileController extends Controller
 
         (new UserRepository())->updateProfile(Auth::userId(), $name, $bio);
         $_SESSION['user']['name'] = $name;
+        $_SESSION['user']['bio'] = $bio;
 
         Flash::success('Perfil atualizado.');
         $this->redirect('/profile');
