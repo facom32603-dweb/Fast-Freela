@@ -23,11 +23,11 @@ use App\Core\Auth;
 
       <div class="row g-2">
         <div class="col-md-6">
-          <div class="fw-semibold mb-1">Valor estimado</div>
+          <div class="fw-semibold mb-1">💵 Valor estimado</div>
           <div>R$ <?= e(number_format((float)$job['estimated_value'], 2, ',', '.')) ?></div>
         </div>
         <div class="col-md-6">
-          <div class="fw-semibold mb-1">Detalhes para contratação</div>
+          <div class="fw-semibold mb-1">📌 Detalhes para contratação</div>
           <?php if (Auth::check()): ?>
             <div style="white-space: pre-wrap;"><?= e($job['hiring_details'] ?? 'Não informado.') ?></div>
           <?php else: ?>
