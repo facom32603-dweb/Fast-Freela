@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="col-md-4 text-md-end">
-      <div class="p-3 ff-card bg-white">
+      <div class="p-3 ff-card">
         <div class="fw-semibold">Dica</div>
         <div class="small-muted">Use a busca por palavras-chave na lista de vagas.</div>
       </div>

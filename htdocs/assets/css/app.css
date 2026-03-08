@@ -17,12 +17,22 @@ a:hover { color: #12512c; }
 
 .ff-navbar{
   background: var(--ff-black-500);
+  
 }
 .ff-navbar .navbar-brand, .ff-navbar .nav-link{
   color: var(--ff-white-500) !important;
 }
 .ff-navbar .nav-link.active{
   color: var(--ff-green-500) !important;
+}
+
+.navbar-toggler {
+  background-color: var(--ff-green-500);
+}
+
+.navbar-toggler-icon {
+  width: 1em;
+  height: 1em;
 }
 
 .ff-card{
@@ -48,7 +58,7 @@ a:hover { color: #12512c; }
   color: #0b2b18;
 }
 .ff-badge-closed{
-  background: #e6e6e6;
+  background: var(--ff-white-500);
   color: #555;
 }
 
@@ -64,8 +74,108 @@ a:hover { color: #12512c; }
 
 .ff-hero{
   border-radius: 20px;
-  background: linear-gradient(135deg, rgba(121,242,164,.75), rgba(162,242,190,.55));
   padding: 24px;
 }
 
 .small-muted{ color: #666; font-size: .95rem; }
+
+/* Splash Screen Responsiva */
+.ff-splash {
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh; 
+    background: var(--ff-white-500);
+    display: flex; 
+    flex-direction: column; /* Organiza logo e texto em coluna */
+    align-items: center; 
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s;
+    padding: 20px; /* Evita que o conteúdo toque as bordas em telas muito pequenas */
+    text-align: center;
+}
+
+.ff-splash img {
+  width: 80vw;
+}
+
+.ff-logo-anim {
+    /* Responsividade inteligente: min 2rem, ideal 8vw, max 4rem */
+    color: var(ff-green-700); 
+    animation: pulse 1.5s infinite ease-in-out;
+    letter-spacing: -2px;
+}
+
+.ff-splash p {
+    font-size: clamp(0.875rem, 3vw, 1.1rem);
+    margin-top: 1rem;
+    max-width: 80%; 
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+@media (max-height: 450px) {
+    .ff-logo-anim { font-size: 2rem; }
+    .ff-splash p { margin-top: 0.5rem; }
+}
+
+/* Hero Enhancements */
+.ff-shape-1, .ff-shape-2 {
+    position: absolute; border-radius: 50%; background: rgba(13, 110, 253, 0.05); z-index: 0;
+}
+.ff-shape-1 { width: 300px; height: 300px; top: -100px; right: -50px; }
+.ff-shape-2 { width: 150px; height: 150px; bottom: -50px; left: -20px; }
+
+.translate-hover { transition: transform 0.3s ease; }
+.translate-hover:hover { transform: translateY(-5px); }
+
+.ff-icon-circle {
+    width: 50px; height: 50px; background:  var(--ff-white-500);
+    border-radius: 50%; display: flex; align-items: center; 
+    justify-content: center; font-size: 1.5rem; margin: 0 auto;
+}
+
+/* Customizações para o novo Hero */
+.ff-hero-new {
+  background-color: var(--ff-white-500) !important;
+  padding: 80px 0;
+  border-bottom: 1px solid  var(--ff-white-500);
+}
+
+.ff-hero-new h1 {
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+/* Estilo do Placeholder caso a imagem não carregue */
+.ff-placeholder-box {
+    width: 100%;
+    min-height: 350px;
+    border: 2px dashed #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.ff-placeholder-box:hover {
+    background-color: #f8f9fa !important;
+    border-color: #28a745;
+}
+
+/* Ajuste do botão verde (caso ainda não tenha no seu CSS) */
+.ff-btn-primary {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+    font-weight: 500;
+}
+
+.ff-btn-primary:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+    color: var(--ff-white-500);
+}
