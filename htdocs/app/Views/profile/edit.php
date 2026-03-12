@@ -23,5 +23,11 @@
         </div>
       </form>
     </div>
+        <div class="d-flex justify-content-center mt-4">
+            <form method="post" action="/profile/delete" onsubmit="return confirm('Tem certeza que deseja excluir sua conta?')">
+                <input type="hidden" name="_csrf" value="<?= e(Auth::csrfToken()) ?>">
+                <button class="btn btn-outline-danger" type="submit">Excluir conta</button>
+            </form>
+        </div>
   </div>
 </div>

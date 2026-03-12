@@ -53,4 +53,15 @@ final class UserRepository
         $st = $pdo->prepare("UPDATE users SET deleted_at = NOW() WHERE id=:id");
         $st->execute(['id'=>$id]);
     }
+
+    public function delete(int $id): bool
+    {
+        $pdo = Database::pdo();
+
+        $stJobs = $pdo->prepare("DELETE FROM jobs WHERE user_id = :id");
+        $stJobs->execute(['id' => $id]);
+
+        $st = $pdo->prepare("DELETE FROM users WHERE id = :id");
+        return $st->execute(['id' => $id]);
+    }
 }

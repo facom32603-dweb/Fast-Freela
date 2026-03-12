@@ -42,6 +42,7 @@ $router->post('/jobs/reopen', fn() => (new JobController())->reopen());
 $router->get('/profile', fn() => (new ProfileController())->dashboard());
 $router->get('/profile/edit', fn() => (new ProfileController())->editForm());
 $router->post('/profile/update', fn() => (new ProfileController())->update());
+$router->post('/profile/delete', fn() => (new \App\Controllers\ProfileController())->delete());
 
 // Admin
 $router->get('/admin', fn() => (new AdminController())->dashboard());

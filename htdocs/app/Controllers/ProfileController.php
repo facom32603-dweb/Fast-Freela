@@ -47,4 +47,21 @@ final class ProfileController extends Controller
         Flash::success('Perfil atualizado.');
         $this->redirect('/profile');
     }
+
+    public function delete(): void
+    {
+        Auth::requireLogin();
+        $this->requirePost();
+        $this->requireCsrf();
+
+        $userId = Auth::userId();
+
+        (new UserRepository())->softDelete($userId);
+
+        session_destroy();
+        session_start();
+
+        Flash::success('Sua conta foi excluída com sucesso.');
+        $this->redirect('/');
+    }
 }
