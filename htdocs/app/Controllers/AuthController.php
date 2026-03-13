@@ -69,7 +69,7 @@ final class AuthController extends Controller
         }
 
         $repo = new UserRepository();
-        if ($repo->findByEmail($email)) {
+        if ($repo->findByEmailWithTrash($email)) {
             Flash::error('Este e-mail já está cadastrado.');
             $this->redirect('/auth/register');
         }
