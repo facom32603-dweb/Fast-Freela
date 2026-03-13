@@ -17,6 +17,15 @@ final class UserRepository
         return $row ?: null;
     }
 
+    public function findByEmailWithTrash(string $email): ?array
+        {
+            $pdo = Database::pdo();
+            $st = $pdo->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
+            $st->execute(['email' => $email]);
+            $row = $st->fetch();
+            return $row ?: null;
+        }
+
     public function findById(int $id): ?array
     {
         $pdo = Database::pdo();
