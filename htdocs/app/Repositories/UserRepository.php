@@ -41,10 +41,15 @@ final class UserRepository
         $st->execute(['n'=>$name,'b'=>$bio,'id'=>$id]);
     }
 
-    public function listAll(): array
-    {
+    public function listAll(): array {
         $pdo = Database::pdo();
-        return $pdo->query("SELECT id, name, email, primary_role, is_admin, created_at, deleted_at FROM users ORDER BY created_at DESC")->fetchAll();
+
+        return $pdo->query("
+            SELECT id, name, email, primary_role, is_admin, created_at, deleted_at
+            FROM users
+            WHERE deleted_at IS NULL
+            ORDER BY created_at DESC
+        ")->fetchAll();
     }
 
     public function softDelete(int $id): void

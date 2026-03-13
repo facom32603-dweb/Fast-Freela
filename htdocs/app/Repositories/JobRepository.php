@@ -79,9 +79,16 @@ final class JobRepository
         return $st->fetchAll();
     }
 
-    public function listAll(): array
-    {
+    public function listAll(): array {
         $pdo = Database::pdo();
-        return $pdo->query("SELECT j.*, u.name AS author_name FROM jobs j JOIN users u ON u.id=j.author_id ORDER BY j.created_at DESC")->fetchAll();
+
+        return $pdo->query("
+            SELECT j.*, u.name AS author_name
+            FROM jobs j
+            JOIN users u ON u.id = j.author_id
+            WHERE j.deleted_at IS NULL
+            AND u.deleted_at IS NULL
+            ORDER BY j.created_at DESC
+        ")->fetchAll();
     }
 }
