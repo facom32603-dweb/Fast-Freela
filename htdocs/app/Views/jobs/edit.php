@@ -20,17 +20,17 @@
 
         <div class="row g-2">
           <div class="col-md-6 mb-3">
-            <label class="form-label">Data</label>
+            <label class="form-label">📅 Data</label>
             <input class="form-control ff-input" type="date" name="job_date" value="<?= e($job['job_date']) ?>" required>
           </div>
           <div class="col-md-6 mb-3">
-            <label class="form-label">Valor estimado (R$)</label>
+            <label class="form-label">💵 Valor estimado (R$)</label>
             <input class="form-control ff-input" type="number" step="0.01" min="0" name="estimated_value" value="<?= e((string)$job['estimated_value']) ?>" required>
           </div>
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Detalhes para contratação</label>
+          <label class="form-label">📌 Detalhes para contratação</label>
           <textarea class="form-control ff-input" name="hiring_details" rows="3"><?= e($job['hiring_details'] ?? '') ?></textarea>
         </div>
 
