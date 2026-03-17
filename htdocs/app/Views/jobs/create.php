@@ -27,19 +27,19 @@ unset($_SESSION['_form_errors'], $_SESSION['_form_old']);
 
         <div class="row g-2">
           <div class="col-md-6 mb-3">
-            <label class="form-label">📅 Data</label>
+            <label class="form-label">Data</label>
             <input class="form-control ff-input" type="date" name="job_date" value="<?= e($old['job_date'] ?? date('Y-m-d')) ?>" required>
             <?php if (isset($errors['job_date'])): ?><div class="text-danger small"><?= e($errors['job_date']) ?></div><?php endif; ?>
           </div>
           <div class="col-md-6 mb-3">
-            <label class="form-label">💵 Valor estimado (R$)</label>
+            <label class="form-label">Valor estimado (R$)</label>
             <input class="form-control ff-input" type="number" step="0.01" min="0" name="estimated_value" value="<?= e($old['estimated_value'] ?? '0.00') ?>" required>
             <?php if (isset($errors['estimated_value'])): ?><div class="text-danger small"><?= e($errors['estimated_value']) ?></div><?php endif; ?>
           </div>
         </div>
 
         <div class="mb-3">
-          <label class="form-label">📌 Detalhes para contratação (visível somente para logados)</label>
+          <label class="form-label">Detalhes para contratação (visível somente para logados)</label>
           <textarea class="form-control ff-input" name="hiring_details" rows="3"><?= e($old['hiring_details'] ?? '') ?></textarea>
         </div>
 
