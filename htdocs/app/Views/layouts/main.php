@@ -29,7 +29,7 @@ $authUser = Auth::user();
 <nav class="navbar navbar-expand-lg ff-navbar">
   <div class="container">
     <a class="navbar-brand d-flex align-items-center gap-2" href="/">
-      <img src="/assets/img/logo-white.svg" alt="FastFreela" width="28" height="12" onerror="this.style.display='none'">
+      <img src="/assets/img/logo.svg" alt="FastFreela" width="28" height="28" onerror="this.style.display='none'">
       <strong>FastFreela</strong>
     </a>
 
